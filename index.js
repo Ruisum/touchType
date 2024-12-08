@@ -71,6 +71,7 @@ const write = (letter, withStroke = true) => {
     if (withStroke) {
         ctx.strokeRect(letter.x, letter.y - letter.height, letter.width, letter.height);
     }
+
     ctx.fillText(letter.value, letter.x, letter.y, letter.width);
 }
 
@@ -80,15 +81,6 @@ const scoreText = (score, font = '12px serif', x = 5, y = 10) => {
     ctx.fillText(`Score: ${score}`, x, y);
     ctx.font = originalText;
 }
-
-// const drawStartButton = () => {
-//     ctx.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
-//     ctx.textBaseline = "top";
-//     ctx.fillStyle = 'white';
-//     ctx.fillText(startButton.text, startButton.x + 8, startButton.y, startButton.width, startButton.height);
-//     ctx.fillStyle = 'black';
-//     ctx.textBaseline = "alphabetic";
-// }
 
 const drawButton = button => {
     ctx.fillRect(button.x, button.y, button.width, button.height);
@@ -140,18 +132,13 @@ const run = () => {
     }
 
     if (fallingLetter && fallingLetter.y > canvas.height) {
-        //fallingLetter = null;
+        fallingLetter = null;
         state = STATES.END;
     }
 
     scoreText(score);
 }
 
-const endScreen = () => {
-    // ToDo
-    
-
-}
 
 const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -162,10 +149,8 @@ const animate = () => {
     } else if (state === STATES.END) {
         scoreText(`Your score is: ${score}`, '20px serif', (canvas.width / 2) - 80, (canvas.height / 2) - 60);
         drawButton(restartButton);
-        endScreen();
     }
     
-
     req = requestAnimationFrame(animate);
 };
 
